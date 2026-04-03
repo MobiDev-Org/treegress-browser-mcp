@@ -25,24 +25,33 @@ If you want to see what Treegress is building in this area, visit [treegress.com
 
 You do not need a global install.
 
-Create `.cursor/mcp.json` in the root of the project where you want to use the MCP server:
+Any MCP client that supports a local `stdio` server can run Treegress with this process configuration:
 
 ```json
 {
-  "mcpServers": {
-    "treegress-browser": {
-      "type": "stdio",
-      "command": "npx",
-      "args": [
-        "--yes",
-        "--package=@treegress.com/treegress-browser-mcp@latest",
-        "treegress-browser-mcp",
-        "--snapshot-engine",
-        "dom"
-      ]
-    }
-  }
+  "name": "treegress-browser",
+  "type": "stdio",
+  "command": "npx",
+  "args": [
+    "--yes",
+    "--package=@treegress.com/treegress-browser-mcp@latest",
+    "treegress-browser-mcp",
+    "--snapshot-engine",
+    "dom"
+  ]
 }
+```
+
+Use the same `command` and `args` values in your client-specific config format:
+
+- Cursor: place this server under `mcpServers` in `.cursor/mcp.json`
+- VS Code or other MCP-capable editors: add the same `stdio` server in the client's MCP settings UI or config file
+- Claude Desktop and similar clients: map the same values into that client's server definition format
+
+If your client only accepts a single shell command, use this equivalent launcher:
+
+```bash
+bash -lc 'npm_config_cache=/tmp/treegress-mcp-cache npx --yes --package=@treegress.com/treegress-browser-mcp@latest treegress-browser-mcp --snapshot-engine dom'
 ```
 
 Notes:

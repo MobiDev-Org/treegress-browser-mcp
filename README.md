@@ -34,9 +34,16 @@ If you want to see what Treegress is building in this area, visit [treegress.com
 
 Most users only need the MCP package.
 
-### Cursor setup
+### Requirements
 
-Create `.cursor/mcp.json` in the root of the project where you want to use the server:
+- Node.js 18 or newer
+- Cursor, VS Code, Windsurf, Claude Desktop, Goose or any other MCP client with local `stdio` MCP support
+
+### Getting started
+
+First, install the Treegress MCP server with your client.
+
+**Standard config** works in most tools:
 
 ```json
 {
@@ -56,12 +63,308 @@ Create `.cursor/mcp.json` in the root of the project where you want to use the s
 }
 ```
 
+If your client only accepts a single shell command, use this equivalent launcher:
+
+```bash
+bash -lc 'npm_config_cache=/tmp/treegress-mcp-cache npx --yes --package=@treegress.com/treegress-browser-mcp@latest treegress-browser-mcp --snapshot-engine dom'
+```
+
 Notes:
 
 - Requires `Node.js 18+`
 - Global `npm i -g` is not required
 - `@treegress.com/treegress-browser-core` is installed automatically as a dependency
 - `--snapshot-engine dom` enables the Treegress custom DOM path
+
+<details>
+<summary>Amp</summary>
+
+Add via the Amp VS Code extension settings screen or by updating your `settings.json` file:
+
+```json
+"amp.mcpServers": {
+  "treegress-browser": {
+    "command": "npx",
+    "args": [
+      "--yes",
+      "--package=@treegress.com/treegress-browser-mcp@latest",
+      "treegress-browser-mcp",
+      "--snapshot-engine",
+      "dom"
+    ]
+  }
+}
+```
+
+Amp CLI setup:
+
+```bash
+amp mcp add treegress-browser -- npx --yes --package=@treegress.com/treegress-browser-mcp@latest treegress-browser-mcp --snapshot-engine dom
+```
+
+</details>
+
+<details>
+<summary>Antigravity</summary>
+
+Add via the Antigravity settings or by updating your configuration file:
+
+```json
+{
+  "mcpServers": {
+    "treegress-browser": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "--yes",
+        "--package=@treegress.com/treegress-browser-mcp@latest",
+        "treegress-browser-mcp",
+        "--snapshot-engine",
+        "dom"
+      ]
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>Claude Code</summary>
+
+Use the Claude Code CLI to add the Treegress MCP server:
+
+```bash
+claude mcp add treegress-browser -- npx --yes --package=@treegress.com/treegress-browser-mcp@latest treegress-browser-mcp --snapshot-engine dom
+```
+
+</details>
+
+<details>
+<summary>Claude Desktop</summary>
+
+Follow the MCP install [guide](https://modelcontextprotocol.io/quickstart/user) and use the standard config above.
+
+</details>
+
+<details>
+<summary>Cline</summary>
+
+Follow the instruction in the section [Configuring MCP Servers](https://docs.cline.bot/mcp/configuring-mcp-servers).
+
+Example local setup in `cline_mcp_settings.json`:
+
+```json
+{
+  "mcpServers": {
+    "treegress-browser": {
+      "type": "stdio",
+      "command": "npx",
+      "timeout": 30,
+      "args": [
+        "--yes",
+        "--package=@treegress.com/treegress-browser-mcp@latest",
+        "treegress-browser-mcp",
+        "--snapshot-engine",
+        "dom"
+      ],
+      "disabled": false
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>Codex</summary>
+
+Use the Codex CLI to add the Treegress MCP server:
+
+```bash
+codex mcp add treegress-browser -- npx --yes --package=@treegress.com/treegress-browser-mcp@latest treegress-browser-mcp --snapshot-engine dom
+```
+
+Alternatively, create or edit `~/.codex/config.toml` and add:
+
+```toml
+[mcp_servers.treegress-browser]
+command = "npx"
+args = ["--yes", "--package=@treegress.com/treegress-browser-mcp@latest", "treegress-browser-mcp", "--snapshot-engine", "dom"]
+```
+
+</details>
+
+<details>
+<summary>Copilot</summary>
+
+Use the Copilot CLI to interactively add the Treegress MCP server:
+
+```text
+/mcp add
+```
+
+Alternatively, create or edit `~/.copilot/mcp-config.json` and add:
+
+```json
+{
+  "mcpServers": {
+    "treegress-browser": {
+      "type": "local",
+      "command": "npx",
+      "tools": [
+        "*"
+      ],
+      "args": [
+        "--yes",
+        "--package=@treegress.com/treegress-browser-mcp@latest",
+        "treegress-browser-mcp",
+        "--snapshot-engine",
+        "dom"
+      ]
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>Cursor</summary>
+
+Create `.cursor/mcp.json` in the root of your project and use the standard config above.
+
+You can also add the same `command` and `args` values manually in `Cursor Settings` -> `MCP` -> `Add new MCP Server`.
+
+</details>
+
+<details>
+<summary>Factory</summary>
+
+Use the Factory CLI to add the Treegress MCP server:
+
+```bash
+droid mcp add treegress-browser "npx --yes --package=@treegress.com/treegress-browser-mcp@latest treegress-browser-mcp --snapshot-engine dom"
+```
+
+Alternatively, type `/mcp` within Factory droid to open an interactive UI for managing MCP servers.
+
+</details>
+
+<details>
+<summary>Gemini CLI</summary>
+
+Follow the MCP install [guide](https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md#configure-the-mcp-server-in-settingsjson) and use the standard config above.
+
+</details>
+
+<details>
+<summary>Goose</summary>
+
+Go to `Advanced settings` -> `Extensions` -> `Add custom extension`.
+Use type `STDIO`, set the command to `npx`, and use these arguments:
+
+```text
+--yes --package=@treegress.com/treegress-browser-mcp@latest treegress-browser-mcp --snapshot-engine dom
+```
+
+</details>
+
+<details>
+<summary>Kiro</summary>
+
+Follow the MCP Servers [documentation](https://kiro.dev/docs/mcp/). For example in `.kiro/settings/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "treegress-browser": {
+      "command": "npx",
+      "args": [
+        "--yes",
+        "--package=@treegress.com/treegress-browser-mcp@latest",
+        "treegress-browser-mcp",
+        "--snapshot-engine",
+        "dom"
+      ]
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>LM Studio</summary>
+
+Go to `Program` in the right sidebar -> `Install` -> `Edit mcp.json` and use the standard config above.
+
+</details>
+
+<details>
+<summary>opencode</summary>
+
+Follow the MCP Servers [documentation](https://opencode.ai/docs/mcp-servers/). For example in `~/.config/opencode/opencode.json`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "treegress-browser": {
+      "type": "local",
+      "command": [
+        "npx",
+        "--yes",
+        "--package=@treegress.com/treegress-browser-mcp@latest",
+        "treegress-browser-mcp",
+        "--snapshot-engine",
+        "dom"
+      ],
+      "enabled": true
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>Qodo Gen</summary>
+
+Open [Qodo Gen](https://docs.qodo.ai/qodo-documentation/qodo-gen) chat panel in VS Code or IntelliJ, connect more tools, add a new MCP server, and paste the standard config above.
+
+</details>
+
+<details>
+<summary>VS Code</summary>
+
+Follow the MCP install [guide](https://code.visualstudio.com/docs/copilot/chat/mcp-servers#_add-an-mcp-server) and use the standard config above.
+
+You can also install the Treegress MCP server using the VS Code CLI:
+
+```bash
+code --add-mcp '{"name":"treegress-browser","command":"npx","args":["--yes","--package=@treegress.com/treegress-browser-mcp@latest","treegress-browser-mcp","--snapshot-engine","dom"]}'
+```
+
+After installation, the Treegress MCP server will be available for use with your agent in VS Code.
+
+</details>
+
+<details>
+<summary>Warp</summary>
+
+Go to `Settings` -> `AI` -> `Manage MCP Servers` -> `+ Add` and use the standard config above.
+
+Alternatively, use the slash command `/add-mcp` in the Warp prompt and paste the same config.
+
+</details>
+
+<details>
+<summary>Windsurf</summary>
+
+Follow Windsurf MCP [documentation](https://docs.windsurf.com/windsurf/cascade/mcp) and use the standard config above.
+
+</details>
 
 ### CLI check
 
