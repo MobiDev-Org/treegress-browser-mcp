@@ -1,0 +1,64 @@
+# @treegress.com/treegress-browser-mcp
+
+MCP server package for the Treegress browser stack.
+
+This package currently wraps the Playwright MCP runtime and resolves `playwright-core`
+from the published `@treegress.com/treegress-browser-core` package.
+
+## Why Treegress Extends Playwright MCP
+
+AI agents need access to the actual page structure they are testing.
+
+Standard Playwright MCP flows expose an ARIA snapshot derived from the accessibility tree. In real test flows, that can hide interactable UI when elements are poorly represented in the accessibility layer.
+
+Treegress extends this flow by:
+
+- serializing the full DOM tree
+- extracting the full set of interactable elements
+- assigning a `refId` to each element so downstream actions such as `click`, `fill`, and similar operations can target them reliably
+
+This package exposes that behavior through MCP. In practice, it gives the agent a structurally complete representation of the page instead of a partial accessibility abstraction, improving element coverage and enabling broader, more reliable test scenarios.
+
+If you want to see what Treegress is building in this area, visit [treegress.com](https://treegress.com).
+
+## Installation
+
+You do not need a global install.
+
+Create `.cursor/mcp.json` in the root of the project where you want to use the MCP server:
+
+```json
+{
+  "mcpServers": {
+    "treegress-browser": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "--yes",
+        "--package=@treegress.com/treegress-browser-mcp@latest",
+        "treegress-browser-mcp",
+        "--snapshot-engine",
+        "dom"
+      ]
+    }
+  }
+}
+```
+
+Notes:
+
+- Requires `Node.js 18+`
+- `@treegress.com/treegress-browser-core` is installed automatically as a dependency
+- Global `npm i -g` is not required
+- `--snapshot-engine dom` enables the Treegress custom DOM snapshot path
+
+## How It Fits Together
+
+The Treegress browser stack is split into two published packages:
+
+- [`@treegress.com/treegress-browser-core`](https://www.npmjs.com/package/@treegress.com/treegress-browser-core)
+- [`@treegress.com/treegress-browser-mcp`](https://www.npmjs.com/package/@treegress.com/treegress-browser-mcp)
+
+## Maintainers
+
+This repository does not have a separate runtime build step of its own, but if an MCP release depends on new runtime behavior from Treegress core, run `npm run build` in the core repository before `npm pack` or `npm publish` here. Full dependency-sync workflow lives in the repository maintainer guide: `DEVELOPING.md`.

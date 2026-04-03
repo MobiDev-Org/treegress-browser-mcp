@@ -1,0 +1,32 @@
+{
+  "name": "playwright-mcp-internal",
+  "version": "0.0.1",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/microsoft/playwright-mcp.git"
+  },
+  "homepage": "https://playwright.dev",
+  "author": {
+    "name": "Microsoft Corporation"
+  },
+  "license": "Apache-2.0",
+  "scripts": {
+    "docker-build": "docker build --no-cache -t playwright-mcp-dev:latest .",
+    "docker-rm": "docker rm playwright-mcp-dev",
+    "docker-run": "docker run -it -p 8080:8080 --name playwright-mcp-dev playwright-mcp-dev:latest",
+    "lint": "npm run lint --workspaces"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.24.0",
+    "@playwright/test": "1.58.0-alpha-2026-01-16",
+    "@types/node": "^24.3.0"
+  },
+  "dependencies": {
+    "ignore": "^7.0.5",
+    "playwright-core": "file:../treegress.com-treegress-browser-core-1.59.0-treegress.8.tgz"
+  }
+}

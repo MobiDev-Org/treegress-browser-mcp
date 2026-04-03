@@ -1,0 +1,8 @@
+**/*
+!README.md
+!LICENSE
+!cli.js
+!index.*
+!config.d.ts
+!mcp/**/*
+**/.DS_Store
