@@ -409,3 +409,6 @@ This repository is a customized fork built on top of Playwright MCP and the broa
 - License: Apache-2.0
 
 Treegress-specific behavior should stay explicit and attributable. The intent is to extend upstream Playwright MCP for Treegress browser automation, while preserving clear lineage to the original projects.
+
+This project is open source and maintained by MobiDev Corporation.
+Licensed under the Apache License, Version 2.0.
