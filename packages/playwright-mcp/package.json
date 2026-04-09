@@ -1,6 +1,6 @@
 {
   "name": "@treegress.com/treegress-browser-mcp",
-  "version": "0.0.56-treegress.8",
+  "version": "0.0.56-treegress.10",
   "description": "Treegress browser tools for MCP",
   "repository": {
     "type": "git",
@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "playwright": "1.58.0-alpha-2026-01-16",
-    "playwright-core": "npm:@treegress.com/treegress-browser-core@1.59.0-treegress.8"
+    "playwright-core": "npm:@treegress.com/treegress-browser-core@1.59.0-treegress.10"
   },
   "bin": {
     "treegress-browser-mcp": "cli.js"
