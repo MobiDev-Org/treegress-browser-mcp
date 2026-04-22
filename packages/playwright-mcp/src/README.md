@@ -1,3 +1,10 @@
 # Where is the source?
 
-Playwright MCP source code is located in the [Playwright monorepo](https://github.com/microsoft/playwright/blob/main/packages/playwright/src/mcp). Please refer to the contributor's guide in [CONTRIBUTING.md](../CONTRIBUTING.md) for more details.
+Primary source for the Treegress MCP package is in this repository under `packages/playwright-mcp`.
+
+This project is a Treegress-maintained fork of Playwright MCP, so some design/runtime behavior is coordinated with:
+
+- `treegress-browser-core` for custom-dom snapshot/runtime logic
+- upstream Playwright repositories for lineage and selective backports
+
+For contribution workflow, see [`CONTRIBUTING.md`](../../../CONTRIBUTING.md).

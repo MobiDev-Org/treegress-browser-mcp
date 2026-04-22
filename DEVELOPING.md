@@ -85,3 +85,12 @@ npm view @treegress.com/treegress-browser-mcp version
 
 - `README.md` and package-level README files are for users
 - release notes, dependency coordination and maintainer workflow belong here
+
+## PR Governance
+
+Protected branches should enforce:
+
+- pull-request-only changes (no direct pushes)
+- required status checks
+- at least one approval from project administration/maintainers
+- merge performed by project administration/maintainers
