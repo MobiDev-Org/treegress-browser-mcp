@@ -47,7 +47,7 @@ First, install the Treegress MCP server with your client.
 
 ```json
 {
-  "mcpServers": {
+  "servers": {
     "treegress-browser": {
       "type": "stdio",
       "command": "npx",
