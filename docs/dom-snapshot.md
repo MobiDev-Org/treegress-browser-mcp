@@ -40,7 +40,7 @@ This fork still contains an older local DOM engine implementation that:
 
 - loads `domSerializer.js`
 - may inject scripts into the page
-- may execute serializer logic in page context
+- may execute serializer logic in page context.
 - builds a local `domMap`
 
 That code remains only for historical/debug purposes and should not be extended as part of the main MCP browser tool path.
