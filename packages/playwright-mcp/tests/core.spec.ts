@@ -26,7 +26,7 @@ test('browser_navigate', async ({ client, server }) => {
 - Page Title: Title
 - Page Snapshot:
 \`\`\`yaml
-- generic [ref=e1]: Hello, world! [custom-dom]
+- generic "Hello, world!" [ref=e1] [custom-dom]
 \`\`\``),
   });
 });

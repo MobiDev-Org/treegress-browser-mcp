@@ -44,6 +44,6 @@ test('browser_click', async ({ client, server }) => {
     },
   })).toHaveResponse({
     code: `await page.getByRole('button', { name: 'Submit' }).click();`,
-    pageState: expect.stringContaining(`button "Submit" [active] [ref=e2]`),
+    pageState: expect.stringContaining(`button "Submit" [ref=e2] [active]`),
   });
 });
