@@ -68,6 +68,16 @@ The Treegress browser stack is split into two published packages:
 - [`@treegress.com/treegress-browser-core`](https://www.npmjs.com/package/@treegress.com/treegress-browser-core)
 - [`@treegress.com/treegress-browser-mcp`](https://www.npmjs.com/package/@treegress.com/treegress-browser-mcp)
 
+Source repositories:
+
+- Core runtime repository: [github.com/MobiDev-Org/treegress-browser-core](https://github.com/MobiDev-Org/treegress-browser-core)
+- MCP adapter repository: [github.com/MobiDev-Org/treegress-browser-mcp](https://github.com/MobiDev-Org/treegress-browser-mcp)
+
+Role split:
+
+- `treegress-browser-core` owns custom-dom snapshot/runtime behavior.
+- `treegress-browser-mcp` exposes that runtime through MCP tools and integration wiring.
+
 ## Maintainers
 
 This repository does not have a separate runtime build step of its own, but if an MCP release depends on new runtime behavior from Treegress core, run `npm run build` in the core repository before `npm pack` or `npm publish` here. Full dependency-sync workflow lives in the repository maintainer guide: `DEVELOPING.md`.
