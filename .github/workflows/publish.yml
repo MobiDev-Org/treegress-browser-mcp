@@ -46,7 +46,15 @@ jobs:
       - run: npm run ctest
         working-directory: ./packages/playwright-mcp
 
-      - name: Publish to npm with next tag
+      - name: Publish to npm with next tag (token)
+        if: ${{ secrets.NPM_TOKEN != '' }}
+        run: npm publish --tag next
+        working-directory: ./packages/playwright-mcp
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to npm with next tag (OIDC)
+        if: ${{ secrets.NPM_TOKEN == '' }}
         run: npm publish --tag next
         working-directory: ./packages/playwright-mcp
 
@@ -70,7 +78,16 @@ jobs:
       - run: npm run lint
       - run: npm run ctest
         working-directory: ./packages/playwright-mcp
-      - run: npm publish --tag latest
+      - name: Publish to npm with latest tag (token)
+        if: ${{ secrets.NPM_TOKEN != '' }}
+        run: npm publish --tag latest
+        working-directory: ./packages/playwright-mcp
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to npm with latest tag (OIDC)
+        if: ${{ secrets.NPM_TOKEN == '' }}
+        run: npm publish --tag latest
         working-directory: ./packages/playwright-mcp
 
   publish-mcp-release-docker:
