@@ -11,13 +11,14 @@ This repository is the source for the published package [`@treegress.com/treegre
 
 AI agents need access to the actual page structure they are testing.
 
-Standard Playwright MCP flows expose an ARIA snapshot derived from the accessibility tree. In real test flows, not just simple demos, that can leave part of the UI outside the model's view when interactable elements are poorly represented in the accessibility layer.
+Standard Playwright MCP flows expose an ARIA snapshot derived from the accessibility tree. In real test flows, not just simple demos, this can leave part of the UI outside the model's view when interactable elements are poorly represented in the accessibility layer. Even when an element is returned by an ARIA snapshot, the information about that element can be too abstract for an agent to properly understand how to interact with the website and implement the scenario.
 
 Treegress extends this flow by:
 
 - serializing the full DOM tree
 - extracting the full set of interactable elements
-- assigning a `refId` to each element so downstream actions such as `click`, `fill`, and similar operations can target them reliably
+- enriching the information about the elements
+- assigning a `refId` to each element so downstream tools such as `browser_click`, `browser_fill_form`, and similar operations can target it reliably.
 
 This gives the agent a structurally complete representation of the page instead of a partial accessibility-based abstraction. In practice, that improves element coverage and enables broader, more reliable test scenarios.
 
@@ -26,7 +27,6 @@ If you want to see what Treegress is building in this area, visit [treegress.com
 ## What This Fork Adds
 
 - MCP browser tools backed by Treegress custom DOM snapshots
-- Ref-based browser actions driven by locator plans from Treegress core
 - A thin adapter layer over the Treegress Playwright fork instead of a second standalone DOM engine
 - Integration path designed for LLM agents that work from structured snapshots instead of screenshots
 
@@ -37,7 +37,7 @@ Most users only need the MCP package.
 ### Requirements
 
 - Node.js 18 or newer
-- Cursor, VS Code, Windsurf, Claude Desktop, Goose or any other MCP client with local `stdio` MCP support
+- Cursor, VS Code, Windsurf, Claude Desktop, Goose, or any other MCP client with local `stdio` MCP support
 
 ### Getting started
 
@@ -150,7 +150,7 @@ Follow the MCP install [guide](https://modelcontextprotocol.io/quickstart/user) 
 <details>
 <summary>Cline</summary>
 
-Follow the instruction in the section [Configuring MCP Servers](https://docs.cline.bot/mcp/configuring-mcp-servers).
+Follow the instructions in the [Configuring MCP Servers](https://docs.cline.bot/mcp/configuring-mcp-servers) section.
 
 Example local setup in `cline_mcp_settings.json`:
 
@@ -331,7 +331,7 @@ Follow the MCP Servers [documentation](https://opencode.ai/docs/mcp-servers/). F
 <details>
 <summary>Qodo Gen</summary>
 
-Open [Qodo Gen](https://docs.qodo.ai/qodo-documentation/qodo-gen) chat panel in VS Code or IntelliJ, connect more tools, add a new MCP server, and paste the standard config above.
+Open the [Qodo Gen](https://docs.qodo.ai/qodo-documentation/qodo-gen) chat panel in VS Code or IntelliJ, connect more tools, add a new MCP server, and paste the standard config above.
 
 </details>
 
@@ -1133,7 +1133,7 @@ This repository keeps the Playwright MCP fork structure. The publishable MCP pac
 
 For release, dependency-sync and build instructions, see [`DEVELOPING.md`](DEVELOPING.md).
 
-If an MCP release depends on new runtime behavior from Treegress core, run `npm run build` in the core repository before `npm pack` or `npm publish` here.
+If an MCP release depends on new runtime behavior from Treegress core, run `npm run build` in the core repository before running `npm pack` or `npm publish` here.
 
 Package-specific notes for the published MCP package live in:
 
