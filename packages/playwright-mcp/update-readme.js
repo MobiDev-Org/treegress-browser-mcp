@@ -129,7 +129,7 @@ async function updateOptions(content) {
   const endMarker = `<!--- End of options generated section -->`;
   return updateSection(content, startMarker, endMarker, [
     '```',
-    '> npx @playwright/mcp@latest --help',
+    '> npx @treegress.com/treegress-browser-mcp@latest --help',
     ...lines,
     '```',
   ]);
