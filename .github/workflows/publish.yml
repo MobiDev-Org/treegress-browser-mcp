@@ -70,7 +70,7 @@ jobs:
       - run: npm run lint
       - run: npm run ctest
         working-directory: ./packages/playwright-mcp
-      - run: npm publish
+      - run: npm publish --tag latest
         working-directory: ./packages/playwright-mcp
 
   publish-mcp-release-docker:

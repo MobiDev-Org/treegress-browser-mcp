@@ -1,6 +1,6 @@
 {
   "name": "@treegress.com/treegress-browser-mcp",
-  "version": "0.0.56-treegress.18",
+  "version": "0.0.56-treegress.19",
   "description": "Treegress browser tools for MCP",
   "repository": {
     "type": "git",
@@ -25,7 +25,7 @@
     "ftest": "playwright test --project=firefox",
     "wtest": "playwright test --project=webkit",
     "dtest": "MCP_IN_DOCKER=1 playwright test --project=chromium-docker",
-    "npm-publish": "npm run lint && npm run test && npm publish",
+    "npm-publish": "npm run lint && npm run test && npm publish --tag latest",
     "copy-config": "cp ../../../../MONO/playwright/packages/playwright/src/mcp/config.d.ts . && perl -pi -e \"s|import type \\* as playwright from 'playwright-core';|import type * as playwright from 'playwright';|\" ./config.d.ts",
     "roll": "npm run copy-config && npm run lint"
   },
