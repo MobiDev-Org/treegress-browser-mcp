@@ -29,7 +29,9 @@ jobs:
 
       - name: Get current version
         id: version
-        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Set canary version
         id: canary-version
@@ -87,7 +89,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   publish-mcp-release-docker:
-    if: github.event_name == 'release'
+    if: github.event_name == 'release' && secrets.AZURE_DOCKER_CLIENT_ID != '' && secrets.AZURE_DOCKER_TENANT_ID != '' && secrets.AZURE_DOCKER_SUBSCRIPTION_ID != ''
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -145,13 +147,18 @@ jobs:
           cache: 'npm'
       - name: Install extension dependencies
         run: npm ci
+      - name: Workaround npm optional dependency bug for Rollup
+        # npm may skip optional platform binaries during npm ci (https://github.com/npm/cli/issues/4828)
+        run: npm install --no-save @rollup/rollup-linux-x64-gnu
       - name: Build extension
         working-directory: ./packages/extension
         run: npm run build
       - name: Get extension version
         id: get-version
         working-directory: ./packages/extension
-        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
       - name: Package extension
         working-directory: ./packages/extension
         run: |
@@ -162,4 +169,4 @@ jobs:
         env:
            GITHUB_TOKEN: ${{ github.token }}
         run: |
-            gh release upload ${{github.event.release.tag_name}} ./packages/extension/playwright-mcp-extension-${{ steps.get-version.outputs.version }}.zip
+            gh release upload ${{github.event.release.tag_name}} ./packages/extension/playwright-mcp-extension-${{ steps.get-version.outputs.version }}.zip --clobber
