@@ -22,7 +22,13 @@ Treegress extends this flow by:
 
 This gives the agent a structurally complete representation of the page instead of a partial accessibility-based abstraction. In practice, that improves element coverage and enables broader, more reliable test scenarios.
 
-If you want to see what Treegress is building in this area, visit [treegress.com](https://treegress.com).
+If you want to better understand the problem and technical details, you can check [Riding Blind: The Hidden Blind Spot in Playwright MCP](https://www.linkedin.com/pulse/riding-blind-hidden-spot-playwright-mcp-artur-tarapatov-hkwuf/).
+
+Here you can find a video comparing Playwright MCP and Treegress MCP on a complex real-world page: [Playwright MCP vs Treegress MCP](https://www.treegress.com/treegress-mcp-browser#mcp-demo).
+
+In the video, you can see the differences in the number of tests produced by each MCP on the same page, differences in test exploration costs, and how Treegress MCP can find and interact with elements that are missing from the Playwright MCP snapshot.
+
+If you want to see what Treegress is building in the area of automated testing, visit [treegress.com](https://treegress.com).
 
 ## What This Fork Adds
 
